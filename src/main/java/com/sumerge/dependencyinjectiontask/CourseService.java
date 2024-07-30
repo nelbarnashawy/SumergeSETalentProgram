@@ -16,4 +16,10 @@ public class CourseService {
         this.courseRecommender2 = courseRecommender2;
         this.courseImp6=courseImp6;
     }
+
+    public void recommendCourse(){
+        System.out.println(courseRecommender.recommendCourse());
+        System.out.println(courseRecommender2.recommendCourse());
+        System.out.println(courseImp6.recommendCourse());
+    }
 }
