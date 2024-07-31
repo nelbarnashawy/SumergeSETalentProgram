@@ -25,7 +25,9 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public Course findById(int id) {
-        return new Course();
+        String sql = "select * from course where id = ?";
+        Course course = template.queryForObject(sql, new Object[]{id}, Course.class);
+        return course;
     }
 
     @Override
