@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,12 @@ public class CourseRepositoryImp implements CourseRepository {
                 return c;
             }
         };
-        return template.queryForObject(selectByIdQuery, new Object[]{id}, mapper);
+
+        try {
+            return template.queryForObject(selectByIdQuery, new Object[]{id}, mapper);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
