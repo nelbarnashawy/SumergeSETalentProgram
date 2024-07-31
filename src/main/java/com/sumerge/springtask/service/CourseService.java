@@ -1,5 +1,6 @@
-package com.sumerge.springtask;
+package com.sumerge.springtask.service;
 
+import com.sumerge.springtask.CourseRecommender;
 import com.sumerge.springtask.model.Course;
 import com.sumerge.springtask.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
