@@ -28,9 +28,19 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public Course findById(int id) {
-        String selectByIdQuery = "select * from course where id = ?";
-        Course course = template.queryForObject(selectByIdQuery, new Object[]{id}, Course.class);
-        return course;
+        String selectByIdQuery = "select * from course where course_id = ?";
+        RowMapper<Course> mapper = new RowMapper<Course>() {
+            @Override
+            public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Course c = new Course();
+                c.setCourse_id(rs.getInt(1));
+                c.setCourse_name(rs.getString(2));
+                c.setCourse_description(rs.getString(3));
+                c.setCourse_credit(rs.getInt(4));
+                return c;
+            }
+        };
+        return template.queryForObject(selectByIdQuery, new Object[]{id}, mapper);
     }
 
     @Override
@@ -59,7 +69,7 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public void delete(Course course) {
-        String deleteQuery = "delete from course where id = ?";
+        String deleteQuery = "delete from course where course_id = ?";
         template.update(deleteQuery, course.getCourse_id());
     }
 
