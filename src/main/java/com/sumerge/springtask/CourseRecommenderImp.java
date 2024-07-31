@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Primary
 @Component("courseImp")
-public class CourseImplementation implements CourseRecommender{
+public class CourseRecommenderImp implements CourseRecommender{
 
     @Override
     public String recommendCourse() {
