@@ -25,15 +25,15 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public Course findById(int id) {
-        String sql = "select * from course where id = ?";
-        Course course = template.queryForObject(sql, new Object[]{id}, Course.class);
+        String selectByIdQuery = "select * from course where id = ?";
+        Course course = template.queryForObject(selectByIdQuery, new Object[]{id}, Course.class);
         return course;
     }
 
     @Override
     public List<Course> findAll() {
-        String sql = "select * from course";
-        ArrayList<Course> courses = (ArrayList<Course>) template.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
+        String selectQuery = "select * from course";
+        ArrayList<Course> courses = (ArrayList<Course>) template.query(selectQuery, new BeanPropertyRowMapper<Course>(Course.class));
         return courses;
     }
 
@@ -45,11 +45,14 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public void delete(Course course) {
-
+        String deleteQuery = "delete from course where id = ?";
+        template.update(deleteQuery, course.getCourse_id());
     }
 
     @Override
     public void update(Course course) {
+        String updateQuery = "update course set course_name = ?, course_description = ?, course_credit = ? where id = ?";
+        template.update(updateQuery, course.getCourse_name(), course.getCourse_description(), course.getCourse_credit(), course.getCourse_id());
 
     }
 }
