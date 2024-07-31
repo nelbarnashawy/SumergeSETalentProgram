@@ -39,7 +39,7 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public void save(Course course) {
-        String addQuery = "insert into course values(?,?,?)";
+        String addQuery = "insert into course(name, description, credit) values(?,?,?)";
         template.update(addQuery, course.getCourse_name(), course.getCourse_description(), course.getCourse_credit());
     }
 
