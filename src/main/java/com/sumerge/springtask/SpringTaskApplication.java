@@ -1,4 +1,4 @@
-package com.sumerge.dependencyinjectiontask;
+package com.sumerge.springtask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
