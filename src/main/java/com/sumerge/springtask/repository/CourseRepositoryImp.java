@@ -75,7 +75,7 @@ public class CourseRepositoryImp implements CourseRepository {
 
     @Override
     public void update(Course course) {
-        String updateQuery = "update course set course_name = ?, course_description = ?, course_credit = ? where id = ?";
+        String updateQuery = "update course set course_name = ?, course_description = ?, course_credit = ? where course_id = ?";
         template.update(updateQuery, course.getCourse_name(), course.getCourse_description(), course.getCourse_credit(), course.getCourse_id());
 
     }
