@@ -1,4 +1,4 @@
-package com.sumerge.dependencyinjectiontask;
+package com.sumerge.springtask;
 
 public interface CourseRecommender {
     String recommendCourse();

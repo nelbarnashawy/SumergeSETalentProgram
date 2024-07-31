@@ -1,4 +1,4 @@
-package com.sumerge.dependencyinjectiontask;
+package com.sumerge.springtask;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
