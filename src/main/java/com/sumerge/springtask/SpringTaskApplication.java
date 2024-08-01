@@ -13,8 +13,11 @@ import java.util.ArrayList;
 public class SpringTaskApplication {
 
 	public static void main(String[] args) {
-//		ApplicationContext context =
+
 		SpringApplication.run(SpringTaskApplication.class, args);
+
+
+		//		ApplicationContext context =
 //		CourseService service = context.getBean(CourseService.class);
 
 //		Course course1 = context.getBean(Course.class);
