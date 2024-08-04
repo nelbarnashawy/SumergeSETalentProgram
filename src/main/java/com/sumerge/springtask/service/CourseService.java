@@ -33,8 +33,8 @@ public class CourseService implements CourseRepository{
         this.courseRecommender = courseRecommender;
     }
 
-    public void recommendCourse(){
-        System.out.println(courseRecommender.recommendCourse());
+    public List<Course> recommendCourse(){
+        return courseRepository.findAll();
     }
 
     @Override
@@ -53,12 +53,12 @@ public class CourseService implements CourseRepository{
     }
 
     @Override
-    public void delete(Course course) {
-        courseRepository.delete(course);
+    public void delete(int id, Course course) {
+        courseRepository.delete(id, course);
     }
 
     @Override
-    public void update(Course course) {
-        courseRepository.update(course);
+    public void update(int id, Course course) {
+        courseRepository.update(id, course);
     }
 }
