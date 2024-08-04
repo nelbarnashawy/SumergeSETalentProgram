@@ -43,8 +43,8 @@ public class CourseController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable int id, @RequestBody Course course) {
-        courseService.delete(id, course);
+    public void delete(@PathVariable int id) {
+        courseService.delete(id);
     }
 
     @GetMapping("/discover")

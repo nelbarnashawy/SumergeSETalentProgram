@@ -74,7 +74,7 @@ public class CourseRepositoryImp implements CourseRepository {
     }
 
     @Override
-    public void delete(int id, Course course) {
+    public void delete(int id) {
         String deleteQuery = "delete from course where course_id = ?";
         try {
             template.update(deleteQuery, id);

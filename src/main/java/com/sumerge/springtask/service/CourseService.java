@@ -53,8 +53,8 @@ public class CourseService implements CourseRepository{
     }
 
     @Override
-    public void delete(int id, Course course) {
-        courseRepository.delete(id, course);
+    public void delete(int id) {
+        courseRepository.delete(id);
     }
 
     @Override
