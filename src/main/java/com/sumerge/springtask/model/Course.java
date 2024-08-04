@@ -53,6 +53,6 @@ public class Course {
                 ", course_name='" + course_name + '\'' +
                 ", course_description='" + course_description + '\'' +
                 ", course_credit=" + course_credit +
-                '}';
+                "} \n";
     }
 }
