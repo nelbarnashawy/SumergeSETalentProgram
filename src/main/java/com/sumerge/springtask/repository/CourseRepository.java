@@ -8,6 +8,6 @@ public interface CourseRepository {
     Course findById(int id);
     List<Course> findAll();
     void save(Course course);
-    void delete(Course course);
-    void update(Course course);
+    void delete(int id, Course course);
+    void update(int id, Course course);
 }

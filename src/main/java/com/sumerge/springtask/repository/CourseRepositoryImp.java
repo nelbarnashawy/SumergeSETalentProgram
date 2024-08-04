@@ -74,10 +74,10 @@ public class CourseRepositoryImp implements CourseRepository {
     }
 
     @Override
-    public void delete(Course course) {
+    public void delete(int id, Course course) {
         String deleteQuery = "delete from course where course_id = ?";
         try {
-            template.update(deleteQuery, course.getCourse_id());
+            template.update(deleteQuery, id);
         }
         catch (NullPointerException e) {
             System.out.println("Course not found");
@@ -85,9 +85,9 @@ public class CourseRepositoryImp implements CourseRepository {
     }
 
     @Override
-    public void update(Course course) {
+    public void update(int id, Course course) {
         String updateQuery = "update course set name = ?, description = ?, credit = ? where course_id = ?";
-        template.update(updateQuery, course.getCourse_name(), course.getCourse_description(), course.getCourse_credit(), course.getCourse_id());
+        template.update(updateQuery, course.getCourse_name(), course.getCourse_description(), course.getCourse_credit(), id);
 
     }
 }
