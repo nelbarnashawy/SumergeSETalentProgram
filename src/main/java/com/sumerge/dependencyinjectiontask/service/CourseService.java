@@ -1,6 +1,6 @@
-package com.sumerge.dependencyinjectiontask;
+package com.sumerge.dependencyinjectiontask.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sumerge.dependencyinjectiontask.CourseRecommender;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 public class CourseService {
     private final CourseRecommender courseRecommender;
 
-    @Autowired
-    public CourseService(@Qualifier("courseImp3") CourseRecommender courseRecommender)  {
+    public CourseService(@Qualifier("courseImplementation3") CourseRecommender courseRecommender)  {
         this.courseRecommender = courseRecommender;
     }
 
