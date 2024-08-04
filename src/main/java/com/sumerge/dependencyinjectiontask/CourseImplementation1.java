@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 @Component("courseImp1")
 public class CourseImplementation1 implements CourseRecommender{
 
-    @Override
-    public String recommendCourses() {
+    public CourseImplementation1() {}
 
-        return ;
+    @Override
+    public String recommendCourse() {
+        return "Math is Recommended";
     }
 }
