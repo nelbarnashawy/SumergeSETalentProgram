@@ -30,18 +30,6 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-//    public CourseRecommender getCourseRecommender() {
-//        return courseRecommender;
-//    }
-//
-//    @Autowired
-//    public void setCourseRecommender(CourseRecommender courseRecommender) {
-//        this.courseRecommender = courseRecommender;
-//    }
-
-//    public List<Course> recommendCourse(){
-//        return courseRepository.findAll();
-//    }
 
     public CourseDTO getCourseDTO(Course course){
         return courseMapper.CoursetoCourseDTO(course);
