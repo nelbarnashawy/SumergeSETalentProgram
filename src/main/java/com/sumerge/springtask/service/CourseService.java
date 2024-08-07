@@ -59,7 +59,7 @@ public class CourseService {
     }
 
     public void save(CourseDTO courseDTO) {
-        if(courseRepository.existsByCourseName(courseDTO.getCourse_name())){
+        if(courseRepository.existsByCourseName(courseDTO.getCourseName())){
             throw new CourseAlreadyExistsException("This course already exists");
         }
         Course course = getCourse(courseDTO);
@@ -79,9 +79,9 @@ public class CourseService {
         }
         Course course = getCourse(courseDTO);
         Course toUpdate = courseRepository.findFirstById(id);
-        toUpdate.setCourse_name(course.getCourse_name());
-        toUpdate.setCourse_description(course.getCourse_description());
-        toUpdate.setCourse_credit(course.getCourse_credit());
+        toUpdate.setCourseName(course.getCourseName());
+        toUpdate.setCourseDescription(course.getCourseDescription());
+        toUpdate.setCourseCredit(course.getCourseCredit());
         courseRepository.save(toUpdate);
     }
 }
