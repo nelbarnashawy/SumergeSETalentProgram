@@ -5,6 +5,7 @@ import lombok.*;
 
 
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -17,9 +18,12 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long authorId;
     private String authorName;
     private String email;
     private Date authorBirthdate;
+
+    @ManyToMany(mappedBy = "authors")
+    private Set<Course> courses;
 
 }
