@@ -26,5 +26,10 @@ public class AuthorController {
         return authorService.findAuthorByEmail(email);
     }
 
+    @PostMapping("/add")
+    public void addAuthor(@RequestBody AuthorDTO authorDTO) {
+        authorService.saveAuthor(authorDTO);
+    }
+
 }
 

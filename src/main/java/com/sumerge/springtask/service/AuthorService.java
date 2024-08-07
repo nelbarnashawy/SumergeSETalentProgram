@@ -1,6 +1,7 @@
 package com.sumerge.springtask.service;
 
 import com.sumerge.springtask.DTOs.AuthorDTO;
+import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
 import com.sumerge.springtask.mappers.AuthorMapper;
 import com.sumerge.springtask.model.Author;
 import com.sumerge.springtask.repository.AuthorRepository;
@@ -30,6 +31,14 @@ public class AuthorService {
 
     public Author getAuthor(AuthorDTO authorDTO) {
         return authorMapper.toAuthor(authorDTO);
+    }
+
+    public void saveAuthor(AuthorDTO authorDTO) {
+        if(authorRepository.existsByEmail(authorDTO.getEmail())){
+            throw new AuthorAlreadyExistsException("Email is already registered");
+        }
+        Author author = authorMapper.toAuthor(authorDTO);
+        authorRepository.save(author);
     }
 
     public AuthorDTO findAuthorByEmail(String email) {
