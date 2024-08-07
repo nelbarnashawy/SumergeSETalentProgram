@@ -42,7 +42,7 @@ public class CourseService {
     }
 
     public CourseDTO findById(Long id) {
-        Course course = courseRepository.findFirstById(id);
+        Course course = courseRepository.findFirstByCourseId(id);
         if (course == null) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
@@ -78,7 +78,7 @@ public class CourseService {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
         Course course = getCourse(courseDTO);
-        Course toUpdate = courseRepository.findFirstById(id);
+        Course toUpdate = courseRepository.findFirstByCourseId(id);
         toUpdate.setCourseName(course.getCourseName());
         toUpdate.setCourseDescription(course.getCourseDescription());
         toUpdate.setCourseCredit(course.getCourseCredit());
