@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class CourseService {
 
     private CourseRepository courseRepository;
-    //private CourseRecommender courseRecommender;
 
     private final CourseMapper courseMapper;
 
