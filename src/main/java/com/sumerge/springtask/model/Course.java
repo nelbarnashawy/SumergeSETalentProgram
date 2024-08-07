@@ -11,8 +11,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name ="Course")
 public class Course {
@@ -30,5 +30,13 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private Set<Author> authors = new HashSet<>();
+    private Set<Author> authors;
+
+
+
+    public Course(String courseName, String courseDescription, int courseCredit) {
+        this.courseName = courseName;
+        this.courseDescription = courseDescription;
+        this.courseCredit = courseCredit;
+    }
 }
