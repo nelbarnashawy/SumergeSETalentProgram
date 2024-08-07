@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Author")
-//@SequenceGenerator(name = "author_seq", sequenceName = "author_sequence", allocationSize = 1)
 public class Author {
 
     @Id

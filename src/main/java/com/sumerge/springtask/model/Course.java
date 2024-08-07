@@ -12,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name ="Course")
-//@SequenceGenerator(name = "course_seq", sequenceName = "course_sequence", allocationSize = 1)
 public class Course {
 
     @Id
