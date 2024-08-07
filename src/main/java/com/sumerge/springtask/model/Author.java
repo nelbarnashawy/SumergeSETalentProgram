@@ -19,8 +19,8 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String author_name;
+    private String authorName;
     private String email;
-    private Date author_birthdate;
+    private Date authorBirthdate;
 
 }

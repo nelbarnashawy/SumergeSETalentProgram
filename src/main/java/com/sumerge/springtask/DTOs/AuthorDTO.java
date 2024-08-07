@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -15,10 +14,10 @@ import java.util.Date;
 public class AuthorDTO {
 
     @NotNull
-    private String author_name;
+    private String authorName;
     @Email
     @NotNull
     private String email;
-    private Date author_birthdate;
+    private Date authorBirthdate;
 
 }

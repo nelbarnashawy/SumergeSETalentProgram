@@ -11,9 +11,9 @@ import lombok.Setter;
 public class CourseDTO {
 
     @NotNull
-    private String course_name;
-    private String course_description;
+    private String courseName;
+    private String courseDescription;
     @NotNull
-    private int course_credit;
+    private int courseCredit;
 
 }

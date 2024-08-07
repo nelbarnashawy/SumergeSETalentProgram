@@ -18,8 +18,8 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String course_name;
-    private String course_description;
-    private int course_credit;
+    private String courseName;
+    private String courseDescription;
+    private int courseCredit;
 
 }
