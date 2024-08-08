@@ -2,7 +2,6 @@ package com.sumerge.springtask.mappers;
 
 import com.sumerge.springtask.DTOs.CourseDTO;
 import com.sumerge.springtask.model.Course;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -13,11 +12,11 @@ class CourseMapperTest {
     private final CourseMapper courseMapper = new CourseMapperImpl();
 
     @Test
-    void convertCoursetoCourseDTO() {
+    void convertCourseToCourseDTO() {
         // ARRANGE
         Course course = new Course("Math Test", "Test Math Course", 8);
         // ACT
-        CourseDTO courseDTO = courseMapper.CoursetoCourseDTO(course);
+        CourseDTO courseDTO = courseMapper.courseToCourseDTO(course);
         // ASSERT
         assertThat(courseDTO).isNotNull();
         assertThat(courseDTO.getCourseName()).isEqualTo(course.getCourseName());
@@ -26,11 +25,11 @@ class CourseMapperTest {
     }
 
     @Test
-    void convertCourseDTOtoCourse() {
+    void convertCourseDtoToCourse() {
         // ARRANGE
         CourseDTO courseDTO = new CourseDTO("Math Test", "Test Math Course", 8);
         // ACT
-        Course course = courseMapper.CourseDTOtoCourse(courseDTO);
+        Course course = courseMapper.courseDtoToCourse(courseDTO);
         // ASSERT
         assertThat(course).isNotNull();
         assertThat(course.getCourseName()).isEqualTo(courseDTO.getCourseName());
