@@ -26,20 +26,13 @@ public class CourseService {
         this.courseMapper = courseMapper;
     }
 
-    public CourseDTO getCourseDTO(Course course) {
-        return courseMapper.CoursetoCourseDTO(course);
-    }
-
-    public Course getCourse(CourseDTO courseDTO) {
-        return courseMapper.CourseDTOtoCourse(courseDTO);
-    }
 
     public CourseDTO findById(Long id) {
         Course course = courseRepository.findFirstByCourseId(id);
         if (course == null) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
-        return getCourseDTO(course);
+        return courseMapper.courseToCourseDTO(course);
     }
 
     public Page<CourseDTO> findAll(int page, int size) {
@@ -48,14 +41,14 @@ public class CourseService {
         if (courses.isEmpty()) {
             throw new NoCoursesAvailableException("No courses available");
         }
-        return courses.map(this::getCourseDTO);
+        return courses.map(courseMapper::courseToCourseDTO);
     }
 
     public void save(CourseDTO courseDTO) {
         if (courseRepository.existsByCourseName(courseDTO.getCourseName())) {
             throw new CourseAlreadyExistsException("This course already exists");
         }
-        Course course = getCourse(courseDTO);
+        Course course = courseMapper.courseDtoToCourse(courseDTO);
         courseRepository.save(course);
     }
 
@@ -70,7 +63,7 @@ public class CourseService {
         if (!courseRepository.existsById(id)) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
-        Course course = getCourse(courseDTO);
+        Course course = courseMapper.courseDtoToCourse(courseDTO);
         Course toUpdate = courseRepository.findFirstByCourseId(id);
         toUpdate.setCourseName(course.getCourseName());
         toUpdate.setCourseDescription(course.getCourseDescription());
