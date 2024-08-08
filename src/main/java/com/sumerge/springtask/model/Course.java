@@ -33,7 +33,6 @@ public class Course {
     private Set<Author> authors;
 
 
-
     public Course(String courseName, String courseDescription, int courseCredit) {
         this.courseName = courseName;
         this.courseDescription = courseDescription;
