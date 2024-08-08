@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,12 +22,12 @@ public class Author {
     private Long authorId;
     private String authorName;
     private String email;
-    private LocalDate authorBirthdate;
+    private Date authorBirthdate;
 
     @ManyToMany(mappedBy = "authors")
     private Set<Course> courses = new HashSet<>();
 
-    public Author(String authorName, String email, LocalDate authorBirthdate) {
+    public Author(String authorName, String email, Date authorBirthdate) {
         this.authorName = authorName;
         this.email = email;
         this.authorBirthdate = authorBirthdate;
