@@ -18,20 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseService {
 
-    private CourseRepository courseRepository;
-
+    private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
 
     @Autowired
-    public CourseService(CourseMapper courseMapper){
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper){
+        this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
     }
-
-    @Autowired
-    public void setCourseRepository(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
-
 
     public CourseDTO getCourseDTO(Course course){
         return courseMapper.CoursetoCourseDTO(course);
