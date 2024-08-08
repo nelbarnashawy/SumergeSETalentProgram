@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class CourseService {
 
@@ -22,16 +21,16 @@ public class CourseService {
     private final CourseMapper courseMapper;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper){
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper) {
         this.courseRepository = courseRepository;
         this.courseMapper = courseMapper;
     }
 
-    public CourseDTO getCourseDTO(Course course){
+    public CourseDTO getCourseDTO(Course course) {
         return courseMapper.CoursetoCourseDTO(course);
     }
 
-    public Course getCourse(CourseDTO courseDTO){
+    public Course getCourse(CourseDTO courseDTO) {
         return courseMapper.CourseDTOtoCourse(courseDTO);
     }
 
@@ -53,7 +52,7 @@ public class CourseService {
     }
 
     public void save(CourseDTO courseDTO) {
-        if(courseRepository.existsByCourseName(courseDTO.getCourseName())){
+        if (courseRepository.existsByCourseName(courseDTO.getCourseName())) {
             throw new CourseAlreadyExistsException("This course already exists");
         }
         Course course = getCourse(courseDTO);
@@ -61,14 +60,14 @@ public class CourseService {
     }
 
     public void delete(Long id) {
-        if(!courseRepository.existsById(id)){
+        if (!courseRepository.existsById(id)) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
         courseRepository.deleteById(id);
     }
 
     public void update(Long id, CourseDTO courseDTO) {
-        if(!courseRepository.existsById(id)){
+        if (!courseRepository.existsById(id)) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
         Course course = getCourse(courseDTO);
