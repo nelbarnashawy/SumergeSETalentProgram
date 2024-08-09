@@ -99,8 +99,10 @@ class CourseServiceTest {
         Page<Course> courses = new PageImpl<>(Arrays.asList(course, course2), pageable, 2);
         Page<CourseDTO> convertedCourses = new PageImpl<>(Arrays.asList(courseDTO, courseDTO2), pageable, 2);
         when(courseRepository.findAll(pageable)).thenReturn(courses);
-        when(courseMapper.courseToCourseDTO(courses.getContent().get(0))).thenReturn(convertedCourses.getContent().get(0));
-        when(courseMapper.courseToCourseDTO(courses.getContent().get(1))).thenReturn(convertedCourses.getContent().get(1));
+        when(courseMapper.courseToCourseDTO(courses.getContent().get(0))).thenReturn(convertedCourses.getContent()
+                .get(0));
+        when(courseMapper.courseToCourseDTO(courses.getContent().get(1))).thenReturn(convertedCourses.getContent()
+                .get(1));
         // ACT
         Page<CourseDTO> result = courseService.findAll(page, size);
         // ASSERT
@@ -201,7 +203,8 @@ class CourseServiceTest {
         assertThat(capturedCourse.getValue().getCourseDescription()).isEqualTo(course2.getCourseDescription());
         assertThat(capturedCourse.getValue().getCourseCredit()).isEqualTo(course2.getCourseCredit());
         assertThat(courseRepository.findFirstByCourseId(id).getCourseName()).isEqualTo(course2.getCourseName());
-        assertThat(courseRepository.findFirstByCourseId(id).getCourseDescription()).isEqualTo(course2.getCourseDescription());
+        assertThat(courseRepository.findFirstByCourseId(id)
+                .getCourseDescription()).isEqualTo(course2.getCourseDescription());
         assertThat(courseRepository.findFirstByCourseId(id).getCourseCredit()).isEqualTo(course2.getCourseCredit());
     }
 
