@@ -11,37 +11,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorService {
 
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     private final AuthorMapper authorMapper;
 
     @Autowired
-    public AuthorService(AuthorMapper authorMapper) {
+    public AuthorService(AuthorMapper authorMapper, AuthorRepository authorRepository) {
         this.authorMapper = authorMapper;
-    }
-
-    @Autowired
-    public void setAuthorRepository(AuthorRepository authorRepository){
         this.authorRepository = authorRepository;
-    }
-
-    public AuthorDTO getAuthorDTO(Author author) {
-        return authorMapper.toAuthorDTO(author);
-    }
-
-    public Author getAuthor(AuthorDTO authorDTO) {
-        return authorMapper.toAuthor(authorDTO);
     }
 
     public void saveAuthor(AuthorDTO authorDTO) {
         if(authorRepository.existsByEmail(authorDTO.getEmail())){
             throw new AuthorAlreadyExistsException("Email is already registered");
         }
-        Author author = authorMapper.toAuthor(authorDTO);
+        Author author = authorMapper.authorDtoToAuthor(authorDTO);
         authorRepository.save(author);
     }
 
     public AuthorDTO findAuthorByEmail(String email) {
-        return getAuthorDTO(authorRepository.findByEmail(email));
+        return authorMapper.authorToAuthorDTO(authorRepository.findByEmail(email));
     }
 }
