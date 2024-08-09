@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AuthorMapper {
-    AuthorDTO authorToAuthorDTO(Author author);
+    AuthorDTO authorToAuthorDto(Author author);
     Author authorDtoToAuthor(AuthorDTO authorDTO);
 }
