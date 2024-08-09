@@ -17,7 +17,7 @@ class AuthorMapperTest {
         // ARRANGE
         Author author = new Author("Nader", "nader@gmail.com", new Date(1999, 4, 25));
         // ACT
-        AuthorDTO authorDTO = authorMapper.authorToAuthorDTO(author);
+        AuthorDTO authorDTO = authorMapper.authorToAuthorDto(author);
         // ASSERT
         assertThat(authorDTO).isNotNull();
         assertThat(authorDTO.getAuthorName()).isEqualTo(author.getAuthorName());
