@@ -5,6 +5,7 @@ import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
 import com.sumerge.springtask.mappers.AuthorMapper;
 import com.sumerge.springtask.model.Author;
 import com.sumerge.springtask.repository.AuthorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,10 @@ public class AuthorService {
     }
 
     public AuthorDTO findAuthorByEmail(String email) {
-        return authorMapper.authorToAuthorDTO(authorRepository.findByEmail(email));
+        if(!authorRepository.existsByEmail(email)){
+            throw new EntityNotFoundException("Author not found");
+        }
+
+        return authorMapper.authorToAuthorDto(authorRepository.findByEmail(email));
     }
 }
