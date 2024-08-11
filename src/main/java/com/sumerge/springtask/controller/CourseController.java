@@ -34,7 +34,7 @@ public class CourseController {
     @PostMapping("/add")
     public ResponseEntity<String> add(@Valid @RequestBody CourseDTO courseDTO) {
         courseService.save(courseDTO);
-        return ResponseEntity.ok("Course added");
+        return ResponseEntity.ok("Course added successfully");
 
     }
 
@@ -44,14 +44,16 @@ public class CourseController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Course ID not found")
     })
-    public void update(@PathVariable Long id, @RequestBody CourseDTO updatedCourse) {
+    public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourse) {
             courseService.update(id, updatedCourse);
+            return ResponseEntity.ok("Course updated successfully");
     }
 
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
             courseService.delete(id);
+           return ResponseEntity.ok("Course deleted successfully");
     }
 
     @GetMapping("/discover/page={page}&size={size}")
