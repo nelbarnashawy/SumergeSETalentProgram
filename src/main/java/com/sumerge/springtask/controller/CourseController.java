@@ -4,6 +4,7 @@ import com.sumerge.springtask.DTOs.CourseDTO;
 import com.sumerge.springtask.service.CourseService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class CourseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestBody CourseDTO courseDTO) {
+    public ResponseEntity<String> add(@Valid @RequestBody CourseDTO courseDTO) {
         courseService.save(courseDTO);
         return ResponseEntity.ok("Course added");
 
