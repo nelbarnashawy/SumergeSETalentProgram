@@ -58,10 +58,10 @@ class CourseControllerTest {
     void testingViewById() throws Exception {
         // ARRANGE
         Long id = 1L;
-        when(courseService.findById(anyLong())).thenReturn(courseDTO);
+        when(courseService.findById(id)).thenReturn(courseDTO);
         // ACT
         // ASSERT
-        mockMvc.perform(get("/course/view/{id}", id)
+        mockMvc.perform(get("/courses/view/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.courseName").value("Math"));
@@ -71,7 +71,7 @@ class CourseControllerTest {
     void testingAddingACourse() throws Exception {
         // ACT
         // ASSERT
-        mockMvc.perform(post("/course/add")
+        mockMvc.perform(post("/courses/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(courseDTO)))
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ class CourseControllerTest {
         course.setCourseCredit(2);
         // ACT
         // ASSERT
-        mockMvc.perform(post("/course/add")
+        mockMvc.perform(post("/courses/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(courseDtoNull)))
                 .andExpect(status().isBadRequest())
@@ -99,7 +99,7 @@ class CourseControllerTest {
         Long id = 1L;
         // ACT
         // ASSERT
-        mockMvc.perform(put("/course/update/{id}", id)
+        mockMvc.perform(put("/courses/update/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(courseDTO2)))
                 .andExpect(status().isOk())
@@ -115,7 +115,7 @@ class CourseControllerTest {
         course.setCourseCredit(2);
         // ACT
         // ASSERT
-        mockMvc.perform(put("/course/update/{id}", id)
+        mockMvc.perform(put("/courses/update/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(courseDtoNull)))
                 .andExpect(status().isBadRequest())
@@ -128,7 +128,7 @@ class CourseControllerTest {
         Long id = 1L;
         // ACT
         // ASSERT
-        mockMvc.perform(delete("/course/delete/{id}", id)
+        mockMvc.perform(delete("/courses/delete/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Course deleted successfully"));
@@ -144,7 +144,7 @@ class CourseControllerTest {
         when(courseService.findAll(0, 10)).thenReturn(courseDTOPage);
         // ACT
         // ASSERT
-        mockMvc.perform(get("/course/discover/page={page}&size={size}", page, size)
+        mockMvc.perform(get("/courses/discover/page={page}&size={size}", page, size)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalPages").value("1"))
