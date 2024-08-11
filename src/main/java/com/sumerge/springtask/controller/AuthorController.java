@@ -19,11 +19,6 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Authors page";
-    }
-
     @GetMapping("/authorByEmail/{email}")
     public ResponseEntity<AuthorDTO> authorByEmail(@PathVariable String email) {
         return ResponseEntity.ok(authorService.findAuthorByEmail(email));

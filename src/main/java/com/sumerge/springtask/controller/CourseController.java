@@ -22,11 +22,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Hello User";
-    }
-
     @GetMapping("/view/{id}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ok"),
