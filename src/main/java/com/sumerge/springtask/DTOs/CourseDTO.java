@@ -10,10 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CourseDTO {
 
-    @NotNull
+    @NotNull(message = "Name is required")
     private String courseName;
     private String courseDescription;
-    @NotNull
+    @NotNull(message = "Credit is required")
     private int courseCredit;
 
 }
