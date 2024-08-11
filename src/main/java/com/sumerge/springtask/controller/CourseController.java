@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,14 +31,14 @@ public class CourseController {
             @ApiResponse(responseCode = "200", description = "Ok"),
             @ApiResponse(responseCode = "404", description = "Course ID not found")
     })
-    public CourseDTO viewById(@PathVariable Long id) {
-            return courseService.findById(id);
+    public ResponseEntity<CourseDTO> viewById(@PathVariable Long id) {
+            return ResponseEntity.ok(courseService.findById(id));
     }
 
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestBody CourseDTO courseDTO) {
         courseService.save(courseDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Course added");
+        return ResponseEntity.ok("Course added");
 
     }
 
@@ -60,8 +59,10 @@ public class CourseController {
     }
 
     @GetMapping("/discover/page={page}&size={size}")
-    public Page<CourseDTO> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return courseService.findAll(page, size);
+    public ResponseEntity<Page> findAll(@RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "10") int size) {
+        Page<CourseDTO> courses= courseService.findAll(page, size);
+        return ResponseEntity.ok(courses);
     }
 
 }
