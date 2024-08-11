@@ -13,10 +13,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class AuthorDTO {
 
-    @NotNull
+    @NotNull(message = "Name is required")
     private String authorName;
     @Email
-    @NotNull
+    @NotNull(message = "Email is required")
     private String email;
     private Date authorBirthdate;
 
