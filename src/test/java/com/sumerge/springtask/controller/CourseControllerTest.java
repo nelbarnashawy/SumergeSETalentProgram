@@ -1,9 +1,9 @@
 package com.sumerge.springtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sumerge.springtask.DTOs.CourseDTO;
-import com.sumerge.springtask.exceptions.CourseAlreadyExistsException;
-import com.sumerge.springtask.exceptions.NoCoursesAvailableException;
+import com.sumerge.springtask.dto.CourseDTO;
+import com.sumerge.springtask.exception.CourseAlreadyExistsException;
+import com.sumerge.springtask.exception.NoCoursesAvailableException;
 import com.sumerge.springtask.model.Course;
 import com.sumerge.springtask.service.CourseService;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest(controllers = CourseController.class)
 class CourseControllerTest {
 
     @MockBean

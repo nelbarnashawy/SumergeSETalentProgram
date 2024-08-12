@@ -1,6 +1,6 @@
-package com.sumerge.springtask.mappers;
+package com.sumerge.springtask.mapper;
 
-import com.sumerge.springtask.DTOs.CourseDTO;
+import com.sumerge.springtask.dto.CourseDTO;
 import com.sumerge.springtask.model.Course;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CourseMapperTest {
 
-    private final CourseMapper courseMapper = new com.sumerge.springtask.mappers.CourseMapperImpl();
+    private final CourseMapper courseMapper = new com.sumerge.springtask.mapper.CourseMapperImpl();
 
     @Test
     void convertCourseToCourseDTO() {

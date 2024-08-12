@@ -1,4 +1,4 @@
-package com.sumerge.springtask.exceptions;
+package com.sumerge.springtask.exception;
 
 public class AuthorAlreadyExistsException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package com.sumerge.springtask.mappers;
+package com.sumerge.springtask.mapper;
 
-import com.sumerge.springtask.DTOs.AuthorDTO;
+import com.sumerge.springtask.dto.AuthorDTO;
 import com.sumerge.springtask.model.Author;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthorMapperTest {
 
-    private final AuthorMapper authorMapper = new com.sumerge.springtask.mappers.AuthorMapperImpl();
+    private final AuthorMapper authorMapper = new com.sumerge.springtask.mapper.AuthorMapperImpl();
 
     @Test
     void convertAuthortoAuthorDTO() {

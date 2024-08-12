@@ -1,6 +1,6 @@
-package com.sumerge.springtask.mappers;
+package com.sumerge.springtask.mapper;
 
-import com.sumerge.springtask.DTOs.AuthorDTO;
+import com.sumerge.springtask.dto.AuthorDTO;
 import com.sumerge.springtask.model.Author;
 import org.mapstruct.Mapper;
 

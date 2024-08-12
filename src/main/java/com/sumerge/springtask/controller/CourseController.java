@@ -1,6 +1,6 @@
 package com.sumerge.springtask.controller;
 
-import com.sumerge.springtask.DTOs.CourseDTO;
+import com.sumerge.springtask.dto.CourseDTO;
 import com.sumerge.springtask.service.CourseService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

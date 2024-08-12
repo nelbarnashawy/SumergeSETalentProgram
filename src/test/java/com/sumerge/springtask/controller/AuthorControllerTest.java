@@ -1,8 +1,8 @@
 package com.sumerge.springtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sumerge.springtask.DTOs.AuthorDTO;
-import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
+import com.sumerge.springtask.dto.AuthorDTO;
+import com.sumerge.springtask.exception.AuthorAlreadyExistsException;
 import com.sumerge.springtask.model.Author;
 import com.sumerge.springtask.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;

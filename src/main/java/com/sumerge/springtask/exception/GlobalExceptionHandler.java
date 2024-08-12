@@ -1,9 +1,5 @@
-package com.sumerge.springtask.controller;
+package com.sumerge.springtask.exception;
 
-import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
-import com.sumerge.springtask.exceptions.CourseAlreadyExistsException;
-import com.sumerge.springtask.exceptions.ErrorResponse;
-import com.sumerge.springtask.exceptions.NoCoursesAvailableException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

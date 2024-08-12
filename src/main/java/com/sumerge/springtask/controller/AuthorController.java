@@ -1,7 +1,6 @@
 package com.sumerge.springtask.controller;
 
-import com.sumerge.springtask.DTOs.AuthorDTO;
-import com.sumerge.springtask.model.Author;
+import com.sumerge.springtask.dto.AuthorDTO;
 import com.sumerge.springtask.service.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

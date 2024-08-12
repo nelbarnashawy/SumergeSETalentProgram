@@ -1,6 +1,6 @@
-package com.sumerge.springtask.mappers;
+package com.sumerge.springtask.mapper;
 
-import com.sumerge.springtask.DTOs.CourseDTO;
+import com.sumerge.springtask.dto.CourseDTO;
 import com.sumerge.springtask.model.Course;
 import org.mapstruct.Mapper;
 

@@ -1,9 +1,9 @@
 package com.sumerge.springtask.service;
 
-import com.sumerge.springtask.DTOs.CourseDTO;
-import com.sumerge.springtask.exceptions.CourseAlreadyExistsException;
-import com.sumerge.springtask.exceptions.NoCoursesAvailableException;
-import com.sumerge.springtask.mappers.CourseMapper;
+import com.sumerge.springtask.dto.CourseDTO;
+import com.sumerge.springtask.exception.CourseAlreadyExistsException;
+import com.sumerge.springtask.exception.NoCoursesAvailableException;
+import com.sumerge.springtask.mapper.CourseMapper;
 import com.sumerge.springtask.model.Course;
 import com.sumerge.springtask.repository.CourseRepository;
 import jakarta.persistence.EntityNotFoundException;

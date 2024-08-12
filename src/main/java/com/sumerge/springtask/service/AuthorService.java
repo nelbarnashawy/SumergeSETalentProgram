@@ -1,8 +1,8 @@
 package com.sumerge.springtask.service;
 
-import com.sumerge.springtask.DTOs.AuthorDTO;
-import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
-import com.sumerge.springtask.mappers.AuthorMapper;
+import com.sumerge.springtask.dto.AuthorDTO;
+import com.sumerge.springtask.exception.AuthorAlreadyExistsException;
+import com.sumerge.springtask.mapper.AuthorMapper;
 import com.sumerge.springtask.model.Author;
 import com.sumerge.springtask.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;

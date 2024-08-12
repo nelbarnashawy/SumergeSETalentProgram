@@ -1,4 +1,4 @@
-package com.sumerge.springtask.exceptions;
+package com.sumerge.springtask.exception;
 
 import lombok.Getter;
 import lombok.Setter;
