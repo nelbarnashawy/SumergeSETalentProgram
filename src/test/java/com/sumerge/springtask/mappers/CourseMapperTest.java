@@ -4,12 +4,11 @@ import com.sumerge.springtask.DTOs.CourseDTO;
 import com.sumerge.springtask.model.Course;
 import org.junit.jupiter.api.Test;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CourseMapperTest {
 
-    private final CourseMapper courseMapper = new CourseMapperImpl();
+    private final CourseMapper courseMapper = new com.sumerge.springtask.mappers.CourseMapperImpl();
 
     @Test
     void convertCourseToCourseDTO() {

@@ -13,8 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Date;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -39,7 +37,7 @@ class AuthorControllerTest {
         author = new Author();
         author.setAuthorName("Nader");
         author.setEmail("nader@gmail.com");
-        author.setAuthorBirthdate(new Date(1999, 4, 25));
+        author.setAuthorBirthdate("1999-4-25");
 
         authorDTO = new AuthorDTO();
         authorDTO.setAuthorName(author.getAuthorName());
@@ -90,7 +88,7 @@ class AuthorControllerTest {
         // ARRANGE
         AuthorDTO authorDtoNull = new AuthorDTO();
         authorDtoNull.setAuthorName("Nader");
-        authorDtoNull.setAuthorBirthdate(new Date(1999, 4, 25));
+        authorDtoNull.setAuthorBirthdate("1999-4-25");
         // ACT
         // ASSERT
         mockMvc.perform(post("/authors/add")

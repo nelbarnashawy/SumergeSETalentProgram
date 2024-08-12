@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +18,6 @@ public class AuthorDTO {
     @Email
     @NotNull(message = "Email is required")
     private String email;
-    private Date authorBirthdate;
+    private String authorBirthdate;
 
 }

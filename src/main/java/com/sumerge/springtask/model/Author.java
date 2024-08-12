@@ -1,10 +1,10 @@
 package com.sumerge.springtask.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,12 +21,12 @@ public class Author {
     private Long authorId;
     private String authorName;
     private String email;
-    private Date authorBirthdate;
+    private String authorBirthdate;
 
     @ManyToMany(mappedBy = "authors")
     private Set<Course> courses = new HashSet<>();
 
-    public Author(String authorName, String email, Date authorBirthdate) {
+    public Author(String authorName, String email, String authorBirthdate) {
         this.authorName = authorName;
         this.email = email;
         this.authorBirthdate = authorBirthdate;

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -24,7 +22,7 @@ class AuthorRepositoryTest {
     @Test
     void findByEmail() {
         // ARRANGE
-        Author givenAuthor = new Author("Nader", "nader@gmail.com", new Date(1999,4,25));
+        Author givenAuthor = new Author("Nader", "nader@gmail.com", "1999-4-25");
         authorRepository.save(givenAuthor);
         // ACT
         Author foundAuthor = authorRepository.findByEmail("nader@gmail.com");
@@ -36,7 +34,7 @@ class AuthorRepositoryTest {
     @Test
     void notFoundByEmail() {
         // ARRANGE
-        Author givenAuthor = new Author("Nader", "nader@gmail.com", new Date(1999,4,25));
+        Author givenAuthor = new Author("Nader", "nader@gmail.com", "1999-4-25");
         authorRepository.save(givenAuthor);
         // ACT
         Author foundAuthor = authorRepository.findByEmail("youssef@gmail.com");
@@ -48,7 +46,7 @@ class AuthorRepositoryTest {
     @Test
     void existsByEmail() {
         // ARRANGE
-        Author givenAuthor = new Author("Nader", "nader@gmail.com", new Date(1999,4,25));
+        Author givenAuthor = new Author("Nader", "nader@gmail.com", "1999-4-25");
         authorRepository.save(givenAuthor);
         // ACT
         boolean exists = authorRepository.existsByEmail("nader@gmail.com");
@@ -59,7 +57,7 @@ class AuthorRepositoryTest {
     @Test
     void doesNotExistByEmail() {
         // ARRANGE
-        Author givenAuthor = new Author("Nader", "nader@gmail.com", new Date(1999,4,25));
+        Author givenAuthor = new Author("Nader", "nader@gmail.com", "1999-4-25");
         authorRepository.save(givenAuthor);
         // ACT
         boolean exists = authorRepository.existsByEmail("youssef@gmail.com");

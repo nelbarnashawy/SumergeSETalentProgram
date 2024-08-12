@@ -13,8 +13,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Date;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -42,12 +40,12 @@ class AuthorServiceTest {
         author = new Author();
         author.setAuthorName("Nader");
         author.setEmail("nader@gmail.com");
-        author.setAuthorBirthdate(new Date(1999, 4, 25));
+        author.setAuthorBirthdate("1999-4-25");
 
-        author2 = new Author("Youssef", "youssef@gmail.com", new Date(2000, 8, 28));
+        author2 = new Author("Youssef", "youssef@gmail.com", "2000-8-28");
 
-        authorDTO = new AuthorDTO("Nader", "nader@gmail.com", new Date(1999, 4, 25));
-        authorDTO2 = new AuthorDTO("Youssef", "youssef@gmail.com", new Date(2000, 8, 28));
+        authorDTO = new AuthorDTO("Nader", "nader@gmail.com", "1999-4-25");
+        authorDTO2 = new AuthorDTO("Youssef", "youssef@gmail.com", "2000-8-28");
     }
 
     @Test
