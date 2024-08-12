@@ -2,6 +2,7 @@ package com.sumerge.springtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumerge.springtask.DTOs.AuthorDTO;
+import com.sumerge.springtask.exceptions.AuthorAlreadyExistsException;
 import com.sumerge.springtask.model.Author;
 import com.sumerge.springtask.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,10 +15,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = AuthorController.class)
@@ -40,9 +42,9 @@ class AuthorControllerTest {
         author.setAuthorBirthdate(new Date(1999, 4, 25));
 
         authorDTO = new AuthorDTO();
-        authorDTO.setAuthorName("Nader");
-        authorDTO.setEmail("nader@gmail.com");
-        authorDTO.setAuthorBirthdate(new Date(1999, 4, 25));
+        authorDTO.setAuthorName(author.getAuthorName());
+        authorDTO.setEmail(author.getEmail());
+        authorDTO.setAuthorBirthdate(author.getAuthorBirthdate());
     }
 
     @Test
@@ -68,6 +70,19 @@ class AuthorControllerTest {
                         .content(new ObjectMapper().writeValueAsString(authorDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Author added successfully"));
+    }
+
+    @Test
+    void testingAddingAnAuthorThatAlreadyExists() throws Exception {
+        // ARRANGE
+        doThrow(new AuthorAlreadyExistsException("Email is already registered")).when(authorService).saveAuthor(any(AuthorDTO.class));
+        // ACT
+        // ASSERT
+        mockMvc.perform(post("/authors/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(authorDTO)))
+                .andExpect(status().isConflict())
+                .andExpect(content().string("Email is already registered"));
     }
 
     @Test

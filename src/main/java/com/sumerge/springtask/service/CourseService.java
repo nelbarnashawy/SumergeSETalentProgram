@@ -27,7 +27,7 @@ public class CourseService {
     }
 
 
-    public CourseDTO findById(Long id) {
+    public CourseDTO findById(Long id) throws EntityNotFoundException {
         Course course = courseRepository.findFirstByCourseId(id);
         if (course == null) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
@@ -35,7 +35,7 @@ public class CourseService {
         return courseMapper.courseToCourseDTO(course);
     }
 
-    public Page<CourseDTO> findAll(int page, int size) {
+    public Page<CourseDTO> findAll(int page, int size) throws NoCoursesAvailableException {
         Pageable pageable = PageRequest.of(page, size);
         Page<Course> courses = courseRepository.findAll(pageable);
         if (courses.isEmpty()) {
@@ -44,7 +44,7 @@ public class CourseService {
         return courses.map(courseMapper::courseToCourseDTO);
     }
 
-    public void save(CourseDTO courseDTO) {
+    public void save(CourseDTO courseDTO) throws CourseAlreadyExistsException {
         if (courseRepository.existsByCourseName(courseDTO.getCourseName())) {
             throw new CourseAlreadyExistsException("This course already exists");
         }
@@ -52,14 +52,14 @@ public class CourseService {
         courseRepository.save(course);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws EntityNotFoundException {
         if (!courseRepository.existsById(id)) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }
         courseRepository.deleteById(id);
     }
 
-    public void update(Long id, CourseDTO courseDTO) {
+    public void update(Long id, CourseDTO courseDTO) throws EntityNotFoundException {
         if (!courseRepository.existsById(id)) {
             throw new EntityNotFoundException("Course with id: " + id + " not found");
         }

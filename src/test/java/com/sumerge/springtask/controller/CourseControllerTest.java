@@ -2,30 +2,34 @@ package com.sumerge.springtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumerge.springtask.DTOs.CourseDTO;
+import com.sumerge.springtask.exceptions.CourseAlreadyExistsException;
+import com.sumerge.springtask.exceptions.NoCoursesAvailableException;
 import com.sumerge.springtask.model.Course;
 import com.sumerge.springtask.service.CourseService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = CourseController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+//@WebMvcTest(controllers = CourseController.class)
 class CourseControllerTest {
 
     @MockBean
@@ -49,9 +53,9 @@ class CourseControllerTest {
 
         courseDTO = new CourseDTO("Math", "Math Test", 8);
         courseDTO2 = new CourseDTO();
-        courseDTO2.setCourseName("CS");
-        courseDTO2.setCourseDescription("CS Course");
-        courseDTO2.setCourseCredit(8);
+        courseDTO2.setCourseName(course2.getCourseName());
+        courseDTO2.setCourseDescription(course2.getCourseDescription());
+        courseDTO2.setCourseCredit(course2.getCourseCredit());
     }
 
     @Test
@@ -65,6 +69,19 @@ class CourseControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.courseName").value("Math"));
+    }
+
+    @Test
+    void testingViewByNonExistingId() throws Exception {
+        // ARRANGE
+        Long id = 3L;
+        when(courseService.findById(id)).thenThrow(new EntityNotFoundException("Course with id: " + id + " not found"));
+        // ACT
+        // ASSERT
+        mockMvc.perform(get("/courses/view/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Course with id: " + id + " not found"));
     }
 
     @Test
@@ -92,6 +109,20 @@ class CourseControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Name is required"));
     }
+
+    @Test
+    void testingAddingACourseThatAlreadyExists() throws Exception {
+        // ARRANGE
+        doThrow(new CourseAlreadyExistsException("This course already exists")).when(courseService).save(any(CourseDTO.class));
+        // ACT
+        // ASSERT
+        mockMvc.perform(post("/courses/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(courseDTO)))
+                .andExpect(status().isConflict())
+                .andExpect(content().string("This course already exists"));
+    }
+
 
     @Test
     void testingUpdatingACourse() throws Exception {
@@ -153,5 +184,19 @@ class CourseControllerTest {
                 .andExpect(jsonPath("$.size").value("2"))
                 .andExpect(jsonPath("$.content[0].courseName").value("Math"))
                 .andExpect(jsonPath("$.content[1].courseName").value("CS"));
+    }
+
+    @Test
+    void testingFindingAllCoursesWithNoExistingCourses() throws Exception {
+        // ARRANGE
+        int page = 0;
+        int size = 10;
+        when(courseService.findAll(0, 10)).thenThrow(new NoCoursesAvailableException("No courses available"));
+        // ACT
+        // ASSERT
+        mockMvc.perform(get("/courses/discover/page={page}&size={size}", page, size)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("No courses available"));
     }
 }

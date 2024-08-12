@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,13 +49,14 @@ class CourseServiceTest {
         course.setCourseDescription("Test Course Description");
         course.setCourseCredit(4);
 
-        course2 = new Course();
-        course2.setCourseName("Test Course2");
-        course2.setCourseDescription("Test Course Description2");
-        course2.setCourseCredit(8);
-
         courseDTO = new CourseDTO("Test Course", "Test Course Description", 4);
         courseDTO2 = new CourseDTO("Test Course2", "Test Course Description2", 8);
+
+        course2 = new Course();
+        course2.setCourseName(courseDTO2.getCourseName());
+        course2.setCourseDescription(courseDTO2.getCourseDescription());
+        course2.setCourseCredit(courseDTO2.getCourseCredit());
+
 
 
     }

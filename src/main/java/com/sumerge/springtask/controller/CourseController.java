@@ -28,7 +28,7 @@ public class CourseController {
             @ApiResponse(responseCode = "404", description = "Course ID not found")
     })
     public ResponseEntity<CourseDTO> viewById(@PathVariable Long id) {
-            return ResponseEntity.ok(courseService.findById(id));
+        return ResponseEntity.ok(courseService.findById(id));
     }
 
     @PostMapping("/add")
@@ -45,21 +45,21 @@ public class CourseController {
             @ApiResponse(responseCode = "404", description = "Course ID not found")
     })
     public ResponseEntity<String> update(@PathVariable Long id, @Valid @RequestBody CourseDTO updatedCourse) {
-            courseService.update(id, updatedCourse);
-            return ResponseEntity.ok("Course updated successfully");
+        courseService.update(id, updatedCourse);
+        return ResponseEntity.ok("Course updated successfully");
     }
 
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
-            courseService.delete(id);
-           return ResponseEntity.ok("Course deleted successfully");
+        courseService.delete(id);
+        return ResponseEntity.ok("Course deleted successfully");
     }
 
     @GetMapping("/discover/page={page}&size={size}")
     public ResponseEntity<Page> findAll(@RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "10") int size) {
-        Page<CourseDTO> courses= courseService.findAll(page, size);
+                                        @RequestParam(defaultValue = "10") int size) {
+        Page<CourseDTO> courses = courseService.findAll(page, size);
         return ResponseEntity.ok(courses);
     }
 
