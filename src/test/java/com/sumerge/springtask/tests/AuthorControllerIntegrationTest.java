@@ -5,6 +5,7 @@ import com.sumerge.springtask.dto.AuthorDTO;
 import com.sumerge.springtask.repository.AuthorRepository;
 import com.sumerge.springtask.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Tag("integration-test")
 public class AuthorControllerIntegrationTest {
 
     @Autowired
