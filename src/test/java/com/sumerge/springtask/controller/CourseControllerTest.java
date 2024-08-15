@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -58,6 +59,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingViewById() throws Exception {
         // ARRANGE
         Long id = 1L;
@@ -65,12 +67,14 @@ class CourseControllerTest {
         // ACT
         // ASSERT
         mockMvc.perform(get("/courses/view/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.courseName").value("Math"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingViewByNonExistingId() throws Exception {
         // ARRANGE
         Long id = 3L;
@@ -78,23 +82,27 @@ class CourseControllerTest {
         // ACT
         // ASSERT
         mockMvc.perform(get("/courses/view/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Course with id: " + id + " not found"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingAddingACourse() throws Exception {
         // ACT
         // ASSERT
         mockMvc.perform(post("/courses/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(courseDTO)))
+                        .content(new ObjectMapper().writeValueAsString(courseDTO))
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Course added successfully"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingAddingACourseWithNullValues() throws Exception {
         // ARRANGE
         CourseDTO courseDtoNull = new CourseDTO();
@@ -104,26 +112,31 @@ class CourseControllerTest {
         // ASSERT
         mockMvc.perform(post("/courses/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(courseDtoNull)))
+                        .content(new ObjectMapper().writeValueAsString(courseDtoNull))
+                        .header("x-validation-report", true))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Name is required"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingAddingACourseThatAlreadyExists() throws Exception {
         // ARRANGE
-        doThrow(new CourseAlreadyExistsException("This course already exists")).when(courseService).save(any(CourseDTO.class));
+        doThrow(new CourseAlreadyExistsException("This course already exists")).when(courseService)
+                .save(any(CourseDTO.class));
         // ACT
         // ASSERT
         mockMvc.perform(post("/courses/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(courseDTO)))
+                        .content(new ObjectMapper().writeValueAsString(courseDTO))
+                        .header("x-validation-report", true))
                 .andExpect(status().isConflict())
                 .andExpect(content().string("This course already exists"));
     }
 
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingUpdatingACourse() throws Exception {
         // ARRANGE
         Long id = 1L;
@@ -131,12 +144,14 @@ class CourseControllerTest {
         // ASSERT
         mockMvc.perform(put("/courses/update/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(courseDTO2)))
+                        .content(new ObjectMapper().writeValueAsString(courseDTO2))
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Course updated successfully"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingUpdatingACourseWithAnotherCourseWithNullValues() throws Exception {
         // ARRANGE
         Long id = 1L;
@@ -147,24 +162,28 @@ class CourseControllerTest {
         // ASSERT
         mockMvc.perform(put("/courses/update/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(courseDtoNull)))
+                        .content(new ObjectMapper().writeValueAsString(courseDtoNull))
+                        .header("x-validation-report", true))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Name is required"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingDeletingACourse() throws Exception {
         // ARRANGE
         Long id = 1L;
         // ACT
         // ASSERT
         mockMvc.perform(delete("/courses/delete/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Course deleted successfully"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingFindingAllCourses() throws Exception {
         // ARRANGE
         int page = 0;
@@ -175,7 +194,8 @@ class CourseControllerTest {
         // ACT
         // ASSERT
         mockMvc.perform(get("/courses/discover/page={page}&size={size}", page, size)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalPages").value("1"))
                 .andExpect(jsonPath("$.totalElements").value("2"))
@@ -186,6 +206,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingFindingAllCoursesWithNoExistingCourses() throws Exception {
         // ARRANGE
         int page = 0;
@@ -194,7 +215,8 @@ class CourseControllerTest {
         // ACT
         // ASSERT
         mockMvc.perform(get("/courses/discover/page={page}&size={size}", page, size)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("No courses available"));
     }
