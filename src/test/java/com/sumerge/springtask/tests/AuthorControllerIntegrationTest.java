@@ -2,11 +2,8 @@ package com.sumerge.springtask.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumerge.springtask.dto.AuthorDTO;
-import com.sumerge.springtask.model.UserEntity;
 import com.sumerge.springtask.repository.AuthorRepository;
-import com.sumerge.springtask.repository.UserRepository;
 import com.sumerge.springtask.service.AuthorService;
-import com.sumerge.springtask.service.UserDetailsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,7 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,14 +34,6 @@ public class AuthorControllerIntegrationTest {
     private AuthorService authorService;
     @Autowired
     private AuthorRepository authorRepository;
-
-    private UserEntity userEntity;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
-
-    private UserDetails authUser;
 
     @Test
     void contextLoads() {
