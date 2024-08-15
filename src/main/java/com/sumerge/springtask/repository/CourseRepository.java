@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CourseRepository extends JpaRepository<Course, Long> {
     Course findFirstByCourseId(Long id);
     boolean existsByCourseName(String courseName);
+    Course findFirstByCourseName(String courseName);
 }
