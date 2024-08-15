@@ -2,8 +2,11 @@ package com.sumerge.springtask.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumerge.springtask.dto.AuthorDTO;
+import com.sumerge.springtask.model.UserEntity;
 import com.sumerge.springtask.repository.AuthorRepository;
+import com.sumerge.springtask.repository.UserRepository;
 import com.sumerge.springtask.service.AuthorService;
+import com.sumerge.springtask.service.UserDetailsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -11,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,6 +38,14 @@ public class AuthorControllerIntegrationTest {
     @Autowired
     private AuthorRepository authorRepository;
 
+    private UserEntity userEntity;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    private UserDetails authUser;
+
     @Test
     void contextLoads() {
 
@@ -41,17 +53,14 @@ public class AuthorControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        authorRepository.deleteAll();
+        this.authorRepository.deleteAll();
     }
 
     @Test
     @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void findingAuthorByEmail() throws Exception {
         // ARRANGE
-        AuthorDTO authorDTO = new AuthorDTO();
-        authorDTO.setAuthorName("Nader");
-        authorDTO.setEmail("nader@gmail.com");
-        authorDTO.setAuthorBirthdate("1999-4-25");
+        AuthorDTO authorDTO = new AuthorDTO("Nader", "nader@gmail.com", "1999-4-25");
         authorService.saveAuthor(authorDTO);
         String email = authorRepository.findByEmail("nader@gmail.com").getEmail();
         // ACT
@@ -119,6 +128,22 @@ public class AuthorControllerIntegrationTest {
                         .header("x-validation-report", true))
                 .andExpect(status().isConflict())
                 .andExpect(content().string("Email is already registered"));
+    }
+
+    @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
+    void sendingARequestWithoutAppropriateHeader() throws Exception {
+        // ARRANGE
+        AuthorDTO authorDTO = new AuthorDTO("Nader", "nader@gmail.com", "1999-4-25");
+        authorService.saveAuthor(authorDTO);
+        // ACT
+        // ASSERT
+        mockMvc.perform(post("/authors/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(authorDTO))
+                        .header("x-validation-report", false))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("Invalid validation report")));
     }
 
 }

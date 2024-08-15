@@ -63,10 +63,7 @@ class CourseControllerIntegrationTest {
     @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void addNewCourseAndFindingCourseById() throws Exception {
         // ARRANGE
-        CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setCourseName("Math");
-        courseDTO.setCourseDescription("Math Test");
-        courseDTO.setCourseCredit(8);
+        CourseDTO courseDTO = new CourseDTO("Math", "Math Test", 8);
         // ACT
         // ASSERT
         mockMvc.perform(post("/courses/add")
@@ -145,10 +142,7 @@ class CourseControllerIntegrationTest {
         courseDTO.setCourseDescription("Math Test");
         courseDTO.setCourseCredit(8);
         courseService.save(courseDTO);
-        CourseDTO courseDTO2 = new CourseDTO();
-        courseDTO2.setCourseName("Physics");
-        courseDTO2.setCourseDescription("Physics Course");
-        courseDTO2.setCourseCredit(2);
+        CourseDTO courseDTO2 = new CourseDTO("Physics", "Physics Course", 2);
         courseService.save(courseDTO2);
         // ACT
         // ASSERT

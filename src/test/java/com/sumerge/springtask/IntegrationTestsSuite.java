@@ -7,5 +7,4 @@ import org.junit.platform.suite.api.Suite;
 @SelectPackages("com.sumerge.springtask.tests")
 @IncludeTags("integration-test")
 public class IntegrationTestsSuite {
-
 }
