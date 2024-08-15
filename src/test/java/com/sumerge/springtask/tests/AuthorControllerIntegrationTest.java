@@ -38,6 +38,11 @@ public class AuthorControllerIntegrationTest {
     @Autowired
     private AuthorMapper authorMapper;
 
+    @Test
+    void contextLoads() {
+
+    }
+
     @BeforeEach
     void setUp() {
         authorRepository.deleteAll();

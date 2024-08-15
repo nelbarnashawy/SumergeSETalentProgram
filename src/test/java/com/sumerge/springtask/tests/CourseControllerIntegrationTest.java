@@ -37,6 +37,10 @@ class CourseControllerIntegrationTest {
     @Autowired
     private CourseMapper courseMapper;
 
+    @Test
+    void contextLoads() {
+    }
+
     @BeforeEach
     void setUp() {
         courseRepository.deleteAll();
