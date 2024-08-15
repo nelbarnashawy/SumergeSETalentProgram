@@ -1,9 +1,7 @@
 package com.sumerge.springtask.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sumerge.springtask.controller.CourseController;
 import com.sumerge.springtask.dto.CourseDTO;
-import com.sumerge.springtask.mapper.CourseMapper;
 import com.sumerge.springtask.repository.CourseRepository;
 import com.sumerge.springtask.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,13 +27,9 @@ class CourseControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private CourseController courseController;
-    @Autowired
     private CourseService courseService;
     @Autowired
     private CourseRepository courseRepository;
-    @Autowired
-    private CourseMapper courseMapper;
 
     @Test
     void contextLoads() {

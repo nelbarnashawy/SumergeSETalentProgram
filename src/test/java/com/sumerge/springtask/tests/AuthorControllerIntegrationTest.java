@@ -1,9 +1,7 @@
 package com.sumerge.springtask.tests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sumerge.springtask.controller.AuthorController;
 import com.sumerge.springtask.dto.AuthorDTO;
-import com.sumerge.springtask.mapper.AuthorMapper;
 import com.sumerge.springtask.repository.AuthorRepository;
 import com.sumerge.springtask.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,13 +28,9 @@ public class AuthorControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private AuthorController authorController;
-    @Autowired
     private AuthorService authorService;
     @Autowired
     private AuthorRepository authorRepository;
-    @Autowired
-    private AuthorMapper authorMapper;
 
     @Test
     void contextLoads() {
