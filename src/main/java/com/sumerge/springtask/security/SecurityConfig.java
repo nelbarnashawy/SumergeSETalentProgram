@@ -30,8 +30,11 @@ public class SecurityConfig {
                 .addFilterBefore(new HeaderFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                .anyRequest().hasAnyRole("ADMIN", "USER")
                                 .requestMatchers(HttpMethod.GET, "/courses/view/**").permitAll()
-                                .anyRequest().authenticated())
+                                .requestMatchers(HttpMethod.GET, "/authors/authorByEmail/**").permitAll()
+                                .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
