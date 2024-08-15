@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -46,6 +47,7 @@ class AuthorControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingFindingAuthorByEmail() throws Exception {
         // ARRANGE
         String email = "nader@gmail.com";
@@ -53,37 +55,44 @@ class AuthorControllerTest {
         // ACT
         // ASSERT
         mockMvc.perform(get("/authors/authorByEmail/{email}", email)
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.authorName").value("Nader"))
                 .andExpect(jsonPath("$.email").value(email));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"USER", "ADMIN"})
     void testingAddingAnAuthor() throws Exception {
         // ACT
         // ASSERT
         mockMvc.perform(post("/authors/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(authorDTO)))
+                        .content(new ObjectMapper().writeValueAsString(authorDTO))
+                        .header("x-validation-report", true))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Author added successfully"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"USER", "ADMIN"})
     void testingAddingAnAuthorThatAlreadyExists() throws Exception {
         // ARRANGE
-        doThrow(new AuthorAlreadyExistsException("Email is already registered")).when(authorService).saveAuthor(any(AuthorDTO.class));
+        doThrow(new AuthorAlreadyExistsException("Email is already registered")).when(authorService)
+                .saveAuthor(any(AuthorDTO.class));
         // ACT
         // ASSERT
         mockMvc.perform(post("/authors/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(authorDTO)))
+                        .content(new ObjectMapper().writeValueAsString(authorDTO))
+                        .header("x-validation-report", true))
                 .andExpect(status().isConflict())
                 .andExpect(content().string("Email is already registered"));
     }
 
     @Test
+    @WithMockUser(username = "testAdmin", password = "testAdmin", roles = {"ADMIN"})
     void testingAddingAnAuthorWithNullValues() throws Exception {
         // ARRANGE
         AuthorDTO authorDtoNull = new AuthorDTO();
@@ -93,7 +102,8 @@ class AuthorControllerTest {
         // ASSERT
         mockMvc.perform(post("/authors/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(authorDtoNull)))
+                        .content(new ObjectMapper().writeValueAsString(authorDtoNull))
+                        .header("x-validation-report", true))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Email is required"));
     }
